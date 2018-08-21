@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script language="JavaScript" type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/additional-methods.min.js"></script>
+    <script type="text/javascript" src="js/pacman.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> Pacman </title>
+
+
+</head>
+
+<body>
+    <header>
+        <img id="logo" src="./pics/logo.png">
+    </header>
+    <nav>
+        <div id="menu">
+            <a onclick="welcomeDiv()">Welcome</a>
+            <a onclick="regDiv()">Register</a>
+            <a onclick="logDiv()">Login</a>
+            <a onclick="document.getElementById('About').style.display='inline'" style="width:auto;">about</a>
+    </nav>
+
+    <section>
+        <div id="Welcome">
+            <br>
+            <br>
+            <br>
+            <br>
+            <img id="logo" src="./pics/Pacman_Purple.jpg" style="border-radius: 8px;">
+            <br>
+            <br>
+            <br>
+            <br>
+            <button id="regBtn" onclick="regDiv()">Register</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="logBtn" onclick="logDiv()">Login</button>
+        </div>
+
+        <div id="Register">
+            <div class="reg-main">
+                <p id="registerheader"> Registration </p>
+                <form action="mailto:ilanamordechai@gmail.com" metod="post" name="registerForm">
+                    <input placeholder="User Name" name="user_name" type="text">
+                    <div id="errorreg1" style="width: 20px;"></div>
+                    <br>
+                    <input placeholder="Password" name="password" type="password">
+                    <div id="errorreg2" style="width: 20px;"></div>
+                    <br>
+                    <input placeholder="First Name" name="fr_name" type="text">
+                    <div id="errorreg3" style="width: 20px;"></div>
+                    <br>
+                    <input placeholder="Last Name" name="ls_name" type="text">
+                    <div id="errorreg4" style="width: 20px;"></div>
+                    <br>
+                    <input placeholder="Email" name="email" type="text" style="margin: 0px 0px 0px 1px;">
+                    <div id="errorreg5" style="width: 20px;"></div>
+                    <br>
+                    <p class="birthday">Birthday&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="years" class="bday-select styled-select yellow rounded"></select>
+                        <select id="months" class="bday-select styled-select yellow rounded"></select>
+                        <select id="days" class="bday-select styled-select yellow rounded"></select>
+                    </p>
+                    <div id="errorreg6" style="width: 20px;"></div>
+                    <input type="submit" value="Submit" id="regSub" />
+                </form>
+                <br>
+                <dialog id="Dialogreg" class="dialog">
+                    <h3>Register Successfully</h3>
+                    <button class="submit" style="outline-width: 0px; " onclick="registerDown()">OK</button>
+                </dialog>
+            </div>
+        </div>
+
+        <div id="Login">
+            <div id="loginForm">
+                <div class="imgcontainer">
+                    <img src="./pics/reg2.png" alt="Avatar" class="avatar" style="width:170px; height:auto;">
+                </div>
+                <div class="container">
+                    <label for="uname">
+                        <b>Username:</b>
+                    </label>
+                    <br/>
+                    <input type="text" placeholder="Enter Username" id="uname" required>
+                    <br/>
+                    <br/>
+                    <label for="psw">
+                        <b>Password:</b>
+                    </label>
+                    <br/>
+                    <input type="password" placeholder="Enter Password" id="psw" required>
+                    <br/>
+                    <div>
+                        <h4 class="error" id="errorUser"></h4>
+                    </div>
+                    <button id="log" onclick="login()">Login</button>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+        <div id="About" class="modal">
+            <form class="modal-content" style="background-color: #FCFBF5;">
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('About').style.display='none'" class="close" title="Close Modal">&times;</span>
+                </div>
+                <p style="font-weight: bold; font-size: 22px; color: #400080;">Created By: Ilana Mordechai & Karin Mishor</p>
+                <p style="font-weight: bold; font-size: 18px; color:#916DED;">
+                 We used jQuery version 3.3.1, and validation plugin which helped us during the validations in the registration phase. <br>
+                 In addition, we used a template from W3 school in order to create the "About" window.<
+                </p>
+                <p style="font-weight: bold; font-size: 22px; color: #400080; text-decoration: underline;">Our Difficulties: </p>
+                <p style="font-weight: bold; font-size: 18px; color:#916DED;">
+                We had to write lots of JavaScript code lines for the first time and it tooks us a while to organize our code in a readable way.<br>
+                Another difficulty was to implement the validation plugin in the registration window, it wasn't easy and we needed to learn the <br>
+                subject from the internet. However, we had a lot of fun writing this game, and we think we learned a lot.<br>
+                </p>
+            </form>
+        </div>
+
+        <div id="Game">
+            <button id="logout" class="logout">Logout</button>
+            <div id="play" scroll="no">
+                <h4 id="welcome_user" class="sub-header lblheader" style="font-size:15px;"></h4>
+                <canvas id="canvas" height="460" width="460"></canvas>
+                <div id="user_board">
+                    <p class="sub-header lblheader">SCORE:</p>
+                    <p class="sub-header lblinput" id="lblScore" />
+                    <p class="sub-header lblheader">TIME LEFT:</p>
+                    <p class="sub-header lblinput" id="lblTime" />
+                    <p class="sub-header lblheader">LIVES:</p>
+                    <div id="lives">
+                    </div>
+                    <p class="sub-header lblheader" style="text-decoration: underline;">bonus:</p>
+                    50 points:&nbsp;&nbsp;
+                    <img src="pics/ice.png" style="width:20px; height:20px;" />
+                    <br>
+                    <br> extra time:&nbsp;&nbsp;
+                    <img src="pics/clock.png" style="width:20px; height:20px;" />
+                    <br>
+                    <br> extra life:&nbsp;&nbsp;
+                    <img src="pics/love.png" style="width:22px; height:22px;" />
+                    <p class="sub-header lblheader" style="text-decoration: underline;">coins</p>
+                    5:
+                    <img src="pics/blue.png" style="width:15px; height:15px;" /> 15:
+                    <img src="pics/silver.png" style="width:15px; height:15px;" /> 25:
+                    <img src="pics/gold.png" style="width:12px; height:12px;" />
+                    <br>
+                    <button class="submit" style="margin:8px 20px 8px 20px; font-size:15px" onclick="restart()" id="restartBtn">Reset Game</button>
+                    <button class="submit" style="margin:0px 20px 8px 20px; font-size:15px" onclick="goToSettings()" id="backSettingsBtn">Back to settings</button>
+                </div>
+            </div>
+        </div>
+        <div id="userSettings" class="uSet">
+            <div style="height:12%;"></div>
+            <p class="setting_header">Numer of monsters: </p>
+            <div class="styled-select yellow rounded">
+                <select id="selectMonsters">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </div>
+            <p class="setting_header" style="padding-bottom:0;">Enter num of coins:</p>
+            <p class="setting_valid">/Between 50-90/</p>
+            <input id="selectCoins" type="number" min="50" max="90" value="50">
+            <br/>
+            <p class="error" id="errorCoins" style="font-size:18px; margin-top:9px;margin-bottom: 0"></p>
+            <p class="setting_header" style="padding-bottom:0;">Enter game time (sec):</p>
+            <p class="setting_valid">/min of 60 seconds/</p>
+            <input id="selectTime" type="number" min="60" value="60">
+            <br/>
+            <p class="error" id="errorTime" style="font-size:18px; margin-top:9px;margin-bottom: 0"></p>
+            <br/>
+            <button class="submit" onclick="playTheGame()" id="settingsBtn">PLAY GAME</button>
+        </div>
+
+        <dialog id="GameOver" class="gameover">
+            <h1 id="dialogText"></h1>
+            <button class="submit" style="outline-width: 0px; " onclick="gameOverdown()">OK</button>
+        </dialog>
+
+    </section>
+    <footer>
+        <p class="foot"> This site was created by Ilana Mordechai & Karin Mishor </p>
+        <br>
+        <p class="foot"> Contact as:</p>
+        <a class="email" href="mailto:ilanamor@post.bgu.ac.il">Ilana's Email</a> &nbsp
+        <a class="email" href="mailto:karinmi@post.bgu.ac.il">Karin's Email</a>
+    </footer>
+    <script type="text/javascript" src="js/game.js"></script>
+</body>
+
+</html>
